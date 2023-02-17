@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.never_surf_alone">
+
    <application
         android:label="never_surf_alone"
         android:name="${applicationName}"

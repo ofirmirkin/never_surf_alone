@@ -21,6 +21,7 @@ class MapSample extends StatefulWidget {
 
 class MapSampleState extends State<MapSample> {
   final Completer<GoogleMapController> _controller = Completer();
+
   static const Marker _kGooglePlexMarker = Marker(
     markerId: MarkerId('_kGooglePlex'),
     infoWindow: InfoWindow(title: 'google plex example'),
@@ -31,6 +32,11 @@ class MapSampleState extends State<MapSample> {
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
+  );
+
+  static const initialCameraPosition = CameraPosition(
+    target: LatLng(53.343973854161774, -6.254634551749251),
+    zoom: 16,
   );
 
   static const CameraPosition _kLake = CameraPosition(
@@ -45,18 +51,27 @@ class MapSampleState extends State<MapSample> {
       body: GoogleMap(
         mapType: MapType.normal,
         markers: {_kGooglePlexMarker},
-        initialCameraPosition: _kGooglePlex,
+        initialCameraPosition: initialCameraPosition,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
+        onPressed: () {
+          // _navigateToNextScreen(context);
+          _goToTheLake();
+        },
         label: const Text('To the lake!'),
-        icon: const Icon(Icons.hotel),
+        icon: const Icon(Icons.directions_boat),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
+
+  // void _navigateToNextScreen(BuildContext context) {
+  //   Navigator.of(context)
+  //       .push(MaterialPageRoute(builder: (context) => GetLocation()));
+  // }
 
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;

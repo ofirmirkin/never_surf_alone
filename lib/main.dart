@@ -115,8 +115,8 @@ class MapSampleState extends State<MapSample> {
         lng)); //not Ideal outcome but an when pressed function can be added to do same result...
   }
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  }
+  // Future<void> _goToTheLake() async {
+  //   final GoogleMapController controller = await _controller.future;
+  //   controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  // }
 }

@@ -1,60 +1,66 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  late GoogleMapController mapController;
-
-  // final LatLng _center = const LatLng(45.521563, -122.677433);
-  // void _onMapCreated(GoogleMapController controller) {
-  //   mapController = controller;
-  // }
-
-  LatLng _center = LatLng(20.5937, 78.9629);
-  late GoogleMapController _controller;
-  Location _location = Location();
-
-  void _onMapCreated(GoogleMapController _cntlr) {
-    _controller = _cntlr;
-    _location.onLocationChanged.listen((l) {
-      _controller.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(target: LatLng(l.latitude!, l.longitude!), zoom: 15),
-        ),
-      );
-    });
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: Colors.green[700],
+      title: 'Flutter Google Maps Demo',
+      home: MapSample(),
+    );
+  }
+}
+
+class MapSample extends StatefulWidget {
+  @override
+  State<MapSample> createState() => MapSampleState();
+}
+
+class MapSampleState extends State<MapSample> {
+  Completer<GoogleMapController> _controller = Completer();
+  static final Marker _kGooglePlexMarker = Marker(
+    markerId: MarkerId('_kGooglePlex'),
+    infoWindow: InfoWindow(title: 'google plex example'),
+    icon: BitmapDescriptor.defaultMarker,
+    position: LatLng(37.42796133580664, -122.085749655962),
+  );
+
+  static final CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
+
+  static final CameraPosition _kLake = CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(37.43296265331129, -122.08832357078792),
+      tilt: 59.440717697143555,
+      zoom: 19.151926040649414);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      body: GoogleMap(
+        mapType: MapType.normal,
+        markers: {_kGooglePlexMarker},
+        initialCameraPosition: _kGooglePlex,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Maps Sample App'),
-          elevation: 2,
-        ),
-        body: GoogleMap(
-          // myLocationEnabled: true,
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 11.0,
-          ),
-        ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _goToTheLake,
+        label: Text('To the lake!'),
+        icon: Icon(Icons.directions_boat),
       ),
     );
+  }
+
+  Future<void> _goToTheLake() async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }

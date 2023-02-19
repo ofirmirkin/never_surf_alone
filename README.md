@@ -1,13 +1,10 @@
 # never_surf_alone
 
-That's what it should look like when you first download the project:
-
-![image](https://user-images.githubusercontent.com/60558136/218131716-814104b7-1c1c-4d7c-a431-38f90ce21cb5.png)
-
-
-## Getting Started
-The "main.dart" file is inside lib/
-
+Our Never Surf Alone initiative involves selecting a desired surfing spot and setting a timer that serves as a safety net. If the timer runs out without being stopped, the relevant authorities are notified, indicating that the surfer is in danger and has not returned, prompting them to provide assistance. This idea was sparked by a team member's passion and recognition of the absence of effective surfer safety measures. To improve the concept, the app displays nearby surfers that one can communicate with, get to know, and possibly arrange to surf together. 
+The Never Surf Alone initiative provides a peace of mind to surfers who venture out into the ocean alone. The use of a timer and automatic alert system could potentially save lives in the event of an accident or emergency.
+In addition to the safety feature, the idea of the app displaying nearby surfers and facilitating communication among them is a great way to promote community and friendship among surfers. It could also be helpful for beginners who may want to learn from more experienced surfers.
+Expanding the concept to other sports could also be very beneficial, especially for those that involve outdoor activities where safety is a concern. For example, hikers or climbers could use a similar app to set a timer and alert system in case of emergency.
+Overall, the Never Surf Alone initiative has the potential to create a safer and more enjoyable experience for surfers and could inspire similar safety measures for other sports.
 
 # Credits:
 

@@ -1,9 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:never_surf_alone/location_services.dart';
+import 'timer.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,14 +43,25 @@ class MapSampleState extends State<MapSample> {
   void _setMarker(LatLng point) {
     setState(() {
       _markers.add(
-        Marker(markerId: MarkerId('marker'), position: point),
+        Marker(
+            markerId: MarkerId('marker'),
+            position: point,
+            consumeTapEvents: true,
+            onTap: () {
+              _navigateToNextScreen(context);
+            }),
       );
     });
   }
 
+  void _navigateToNextScreen(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => CountdownPage()));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(title: Text('Never Surf Alone')),
       body: Column(
         children: [
